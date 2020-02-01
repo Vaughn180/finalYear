@@ -1,0 +1,58 @@
+#define DIGITALINPUT 1
+#define PULLDOWN 1
+#define RISING 1
+#define LORAMAC_JOIN_BY_REQUEST 1
+#define EVENTPORT 2 // port sending events down
+#define CONFIRMATION 1 
+#define RECURRINGTIMER 1
+// hello world code 
+function HandlerTimer0()
+    //Output 'Hello world'
+    print "Tick"
+endfunc 1
+
+function pirHandler()
+    dim RC, data$
+    data$ = "event!"
+    RC = LORAMACTxData(EVENTPORT, data$ ,CONFIRMATION)
+    print "Hello world\n"
+endfunc 1
+
+function LoramacJoining() As Integer
+    print "\nJoining"
+endfunc 1
+
+function LoramacJoined() As Integer
+    print "\nJoined"
+//pinsetup -  this sets up GPIO pin., 6- the SIO pin is connected to the output of PIR.  
+// Middle ,specifies the DIGITALINPUT. as we are using PIR sensor.
+    // PullDOWN is a sub function for the  pull down resistor which dictates the direction of the prefered value.
+    dim RC 
+    RC = GPIOSETFUNC(6, DIGITALINPUT, PULLDOWN)
+    //binding the pin 6 to eventGPIOchans 0,  0- is the hardware channel - which monitors for pin changes
+    // rising - is the polarity so what interrupts its looking for.
+    RC = GPIOBINDEVENT(0, 6 ,RISING)
+endfunc 1
+
+
+//Setup event handlers
+onevent EVTMR0 call HandlerTimer0
+// when the event occurs call out pirHandler fucntion
+onevent EVGPIOCHAN0 call pirHandler
+//event handler for lora
+ONEVENT EVLORAMACJOINING CALL LoramacJoining
+ONEVENT EVLORAMACJOINED CALL LoramacJoined
+
+//Start the recurring timer
+TIMERSTART(0, 500, RECURRINGTIMER)
+// dim stands for dimension RC is the variable being used to store the return code for both functions
+dim RC
+
+//setup for lora
+RC = LORAMACJOIN(LORAMAC_JOIN_BY_REQUEST)
+//check if lora connection is still up
+RC = LORAMACLinkCheck()
+//Wait for an event to occur
+WAITEVENT
+
+
