@@ -68,10 +68,10 @@ function DataSend()
         
 endfunc 1
 
-function addData()
-packets = packets + data$      
+// function addData()
+// packets = packets + data$      
 
-endfunc 1
+// endfunc 1
 
 function randomSelect()
 
