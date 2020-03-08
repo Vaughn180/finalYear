@@ -4,7 +4,7 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
+    header("location: MainPage.html");
     exit;
 }
  
@@ -18,24 +18,10 @@ $username_err = $password_err = "";
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
-    } else{
-        $username = trim($_POST["username"]);
-    }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    
     // Validate credentials
-    if(empty($username_err) && empty($password_err)){
+    if("email") && ("password")){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, email, password FROM users WHERE username = ?";
         
         if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -88,7 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
  
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,4 +107,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>    
 </body>
-</html>
+</html> -->

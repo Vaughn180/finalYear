@@ -157,7 +157,6 @@ span.psw {
   }
 }
 
-
 </style>
 
 <body>
@@ -174,8 +173,6 @@ span.psw {
       <!-- Sign up popup stuff -->
       <button class="button home-button" onclick="document.getElementById('id02').style.display='block'" style="width:49%;">Sign Up</button>
         
-<!-- <button class="button button4">Sign in</button> 
-<button class="button button5">Sign Up</button> -->
     </div>
   </div>
 </div>
@@ -183,7 +180,7 @@ span.psw {
 <div id="id01" class="modal">
   <!--Div for the image-->
   <!--Form begins-->
-  <form class="modal-content animate" action="MainPage.html" method="post">
+  <form class="modal-content animate" action="authenticate.php." method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">
@@ -213,7 +210,7 @@ span.psw {
 <!--Sign Up modal form-->
 <div id="id02" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php" method="post">
+  <form class="modal-content animate" action="Sign.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">
@@ -233,17 +230,17 @@ span.psw {
       <input type="password" placeholder="Enter Password" name="psw" required>
 
       <label for="role"><b>Role</b></label>
-      <select id ="role" name ="role" class="dropdown">
+      <select id ="role" name ="role" class="dropdown" required>
         <option value ="Admin"> Admin</option>
         <option value="Council Member">Council Member</option>
         <option value ="Supervisor">Supervisor</option>
       </select>
 
       <label for="gender"><b>Gender</b></label>
-      <select id="gender" name="gender" class= "dropdown">
+      <select id="gender" name="gender" class= "dropdown" required>
         <option value="Male">Male</option>
         <option value ="Female">Female</option>
-        <option value = "prefer not to say">I prefer not to say</option>
+        <option value = "prefer not to say">I prefer not to say </option> 
       </select>      
       <button type="submit">Sign up</button>
     </div>
