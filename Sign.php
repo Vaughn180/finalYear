@@ -1,11 +1,20 @@
 <?php include("authenticate.php")> // include authenticate page
 // include config page
 require_once "config.php"
+session_start();
 
+$email = "";
+
+$connection = mysqli_connect("localhost", "root", "co600project","walkingzebra");
+
+if(mysqli_connect_errno()){
+    // if there is an error connectiong,  stop the script and dipsay the error message.
+    exit("Failed to connect to MYSQL:" . mysqli_connect_errno());
+}
 
 
 //registers user
-if(isset($_POST['register_user'])) {
+if(isset($_POST["register_user"])) {
    // receive the values from the form
     $firstname = mysqli_real_escape_string($connection, $_POST["First name"]);
     $lastname = mysqli_real_escape_string($connection, $_POST["Last name"]);
