@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <style>
+    html, body, h1, h2, h3, h4, h5, h6, p {
+    font-family: "Raleway", sans-serif
+  }
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .bg-image {
+      /* The image used */
+      background-image: url("canterbury.jpg");
+
+      /* Add the blur effect */
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
+
+      /* Full height */
+      height: 100%;
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Position text in the middle of the page/image */
+    .bg-text {
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/opacity/see-through */
+      color: white;
+      font-weight: bold;
+      border: 3px solid #f1f1f1;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 90%;
+      padding: 20px;
+      text-align: center;
+      height: 90%;
+    }
+
+
+  </style>
+
+
+  <!-- Importing plotly-->
+  <script src="plotly-latest.min.js"></script>
+  <!-- Importing ajax-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="bg-image"></div>
+
+  <div class="bg-text">
+    <h1>Walking Zebra</h1>
+    
+
+    <div class="w3-container">
+      <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>
+      <hr>
+    </div>
+
+
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+      <h2 class="w3-text-grey w3-padding-16"><i
+          class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal" ></i>Data Output</h2>
+        <p> (Please select the dates you are interested in.)</p>
+
+          <!-- I removed the div class btw  -->
+      <div id ="theForm">
+
+      
+        <form class="form-inline" id="times">
+          <label>Select Dates:</label>
+          <label for="birthdaytime">From:</label>
+          <input type="datetime-local" id="birthdaytime" name="birthdaytime">
+
+          <label for="birthdaytime">To:</label>
+          <input type="datetime-local" id="birthdaytime2" name="birthdaytime">
+          <input onclick="myFunction()" type="button" value="Search!">
+        </form>
+
+        <hr>
+      </div>
+
+      </div>
+
+
+
+
+      <div class="w3-container w3-card w3-white">
+        <h2 class="w3-text-grey w3-padding-16"><i
+            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+
+        <div class="w3-container">
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
+          <hr>
+        </div>
+
+
+        <div id="tester" style="width:600px;height:250px;">
+
+          <script>
+            function myFunction() {
+              from = document.getElementById("birthdaytime").value + ":00Z"
+              to = document.getElementById("birthdaytime2").value + ":00Z"
+
+              var query = "SELECT pplCount FROM countppl WHERE time >= '" + from + "' AND time <='" + to + "'";
+              $.ajax({
+                type: 'GET',
+                crossOrigin: true,
+                url: 'http://localhost:8086/query?db=countingpeople&q=' + query,
+                success: function (data) {
+                  console.log(data)
+                  const resultValues = data.results[0].series[0].values;
+                  console.log(data.results[0].series[0]);
+                  console.log(resultValues)
+
+                  const unpackData = (arr, key) => {
+                    return arr.map(obj => obj[key])
+                  }
+
+                  console.log(unpackData(resultValues, 1))
+
+                  TESTER = document.getElementById('tester');
+                  Plotly.newPlot(TESTER, [{
+                    x: unpackData(resultValues, 0),
+                    y: unpackData(resultValues, 1),
+                  }], {
+                    margin: { t: 0 }
+                  });
+
+                }
+              });
+            }
+          </script>
+
+    </div>
+    </div>
+
+
+    
+    </div>
+    
+
+
+
+
+</body>
+
+</html>

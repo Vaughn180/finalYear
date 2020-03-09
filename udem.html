@@ -1,0 +1,69 @@
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script>  -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<!-- <script src="components/highstock/highstock.js"></script> -->
+
+<script> 
+
+var query = 'SELECT \"pplCount\" FROM \"countppl\" WHERE \"sensor_id\" = \'sensor1\'';
+  
+  //$('#clickme').click(function() {
+    $.ajax({
+      type: 'GET',
+      crossOrigin: true,
+      url: 'http://localhost:8086/query?db=countingpeople&q=' + query,
+      success: function(data) {
+        const resultValues = data.results[0].series[0].values;
+        console.log(data.results[0].series[0]);
+        console.log(resultValues)
+ 
+        const unpackData = (arr, key) => {
+        return arr.map(obj => obj[key])
+      }
+
+      console.log(unpackData(resultValues, 1 ))
+
+      TESTER = document.getElementById('tester');
+      Plotly.newPlot(TESTER, [{
+        x: unpackData(resultValues, 0 ),
+        y: unpackData(resultValues, 1 ),
+      }], {
+        margin: { t: 0 }
+      });
+
+//         var multiplesOfTen = resultValues.map(resultValues[0]) 
+//   var mil = resultValues.map(resultValues[1])
+// console.log(multiplesOfTen);
+// console.log(mil);
+
+
+
+      }
+    });
+  //});
+  
+
+
+
+</script>
+
+<script src="plotly-latest.min.js"></script>
+
+<div id="container"></div>
+<div id="tester" style="width:600px;height:250px;">
+
+
+    <!-- <script>
+      TESTER = document.getElementById('tester');
+      Plotly.newPlot(TESTER, [{
+        x: [1, 2, 3, 4, 5],
+        y: [1, 2, 4, 8, 16]
+      }], {
+        margin: { t: 0 }
+      });
+    </script> -->
+
+
+
+
+  </div>
