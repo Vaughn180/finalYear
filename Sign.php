@@ -1,8 +1,8 @@
-<?php>
+<?php include("authenticate.php")> // include authenticate page
 // include config page
 require_once "config.php"
-// include authenticate page
-require_once "authenticate.php"
+
+
 
 //registers user
 if(isset($_POST['register_user'])) {
@@ -22,7 +22,7 @@ $user = mysqli_fetch_assoc($result)
 
 if($user) {
     if($user["email" === $email]){
-        echo "email already exists"
+        echo "Email already exists"
     }
     //if email doesnt already exist, the new given data is inserted to the database
     else{
@@ -33,7 +33,6 @@ if($user) {
         header("Location: MainPage.html")
     }
 }
-
 
 
 
