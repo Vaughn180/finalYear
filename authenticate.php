@@ -8,7 +8,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 //if the user is not logged in then it redirects to landing Page
 if(!isset($_SESSION["loggedin"])){
-    header("Location: landingPage.html");
+    header("Location: landingPage.php");
     exit;
 }
 
