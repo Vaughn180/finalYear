@@ -12,7 +12,7 @@ $gender = $_POST['gender'];
 
 
 //DB Connection:
-$conn = new mysqli('vaughn-instance.cddvtroihmoa.eu-west-2.rds.amazonaws.com', 'Vaughn', 'co600project', 'walkingzebra');
+$conn = new mysqli('localhost', 'root', '', 'walkingzebra');
 echo "HELLO";
 
 // if(mysqli_connect_errno()){
