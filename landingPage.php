@@ -217,13 +217,7 @@ span.psw {
       <img src="avatar.jpg" alt="Avatar" class="avatar">
     </div>
 
-    <div class="container">
-      <label for="fname"><b>First name</b></label>
-      <input type="text" placeholder="First name..." name="First name" required>
-
-      <label for="lname"><b>Last name</b></label>
-      <input type="text" placeholder="Last name..." name="Last name" required>
-      
+    <div class="container">    
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Email Address..." name="email" value =" <?php echo $email; ?>"> 
 
@@ -235,14 +229,7 @@ span.psw {
         <option value ="Admin"> Admin</option>
         <option value="Council Member">Council Member</option>
         <option value ="Supervisor">Supervisor</option>
-      </select>
-
-      <label for="gender"><b>Gender</b></label>
-      <select id="gender" name="gender" class= "dropdown" required>
-        <option value="Male">Male</option>
-        <option value ="Female">Female</option>
-        <option value = "prefer not to say">I prefer not to say </option> 
-      </select>      
+      </select>     
       <button type="submit" name="register_user"> Sign up</button>
     </div>
 
