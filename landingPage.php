@@ -1,4 +1,4 @@
-<?php include("Sign.php") ?>
+<?php include("connect.php") ?>
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
@@ -181,7 +181,7 @@ span.psw {
 <div id="id01" class="modal">
   <!--Div for the image-->
   <!--Form begins-->
-  <form class="modal-content animate" action="authenticate.php." method="post">
+  <form class="modal-content animate" action="landingPage.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">
@@ -211,7 +211,7 @@ span.psw {
 <!--Sign Up modal form-->
 <div id="id02" class="modal">
   
-  <form class="modal-content animate" action="Sign.php" method="post">
+  <form class="modal-content animate" action="landingPage.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">

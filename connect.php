@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 // include ('landingPage.html')
 
 $fname = $_POST['First name'];
@@ -10,7 +12,7 @@ $gender = $_POST['gender'];
 
 
 //DB Connection:
-$conn = new mysqli('localhost', 'root', 'co600project', 'walkingzebra');
+$conn = new mysqli('vaughn-instance.cddvtroihmoa.eu-west-2.rds.amazonaws.com', 'Vaughn', 'co600project', 'walkingzebra');
 echo "HELLO";
 
 // if(mysqli_connect_errno()){
