@@ -54,8 +54,8 @@ function PrepareData$()
     RC= I2CREADREG8(RTC_ADDRESS,YEAR_ADDR, temp) // year on Tiny RTC
     RC= STRSETCHR(data$, BCD_2_DEC(temp),7) 
      
-    index = 5
-    for 
+    // index = 5
+    // for 
     
 
 endfunc data$

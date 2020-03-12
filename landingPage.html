@@ -40,13 +40,14 @@ h1{color: #0d6129;text-align: center;}
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password], select.dropdown {
+input[type=text], input[type=password], input[type=email]{
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  height: 5%;
 }
 
 /* Set a style for all buttons */
@@ -61,14 +62,13 @@ button {
   width: 100%;
 }
 
-button:hover {background-color: #4CAF50;}
+.home-button:hover{background-color: #4CAF50;}
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
+/* setting disabled button button */
+:disabled{
+  background-color: grey;
 }
+
 
 /* Center the image and position the close button */
 .imgcontainer {
@@ -111,7 +111,7 @@ span.psw {
   background-color: #fefefe;
   margin: 1% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
-  width: 30%; /* Could be more or less, depending on screen size */
+  width: 20%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button (x) */
@@ -152,10 +152,16 @@ span.psw {
      display: block;
      float: none;
   }
-  .cancelbtn {
-     width: 100%;
-  }
+
 }
+.error {color: #FF0000;}
+
+.cancelbtn{
+  width: 100%;
+  background-color:#FF0000;
+  height:5%;
+}
+
 
 </style>
 
@@ -171,8 +177,7 @@ span.psw {
         <!-- Login popup stuff -->
       <button class="button home-button" onclick="document.getElementById('id01').style.display='block'" style="width:49%;">Login</button>
       <!-- Sign up popup stuff -->
-      <button class="button home-button" onclick="document.getElementById('id02').style.display='block'" style="width:49%;">Sign Up</button>
-        
+      <button class="button home-button" onclick="document.getElementById('id02').style.display='block'" style="width:49%;">Sign Up</button>       
     </div>
   </div>
 </div>
@@ -180,26 +185,23 @@ span.psw {
 <div id="id01" class="modal">
   <!--Div for the image-->
   <!--Form begins-->
-  <form class="modal-content animate" action="login2.php" method="post">
+  <form class="modal-content animate"  id ="modal-content animate" name="modal-content animate" action="login2.php" method="post">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">
     </div>
 
     <!-- Div for the Email, PassW and Login bits-->
     <div class="container">
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Email Address..." name="email" required>
+      <label for="email"><b>Email</b></label> <span class= "error">*</span>
+      <input type="email" id= "txt" placeholder="Email Address..." name="email" number=1 onKeyup="checkSubmission(this)" required> 
+      
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Password..." name="password" required>
+      <label for="psw"><b>Password</b></label> <span class= "error">*</span>
+      <input type="password" id="txt2" placeholder="Password..." name="password" minlength="6" number=true onKeyup="checkSubmission(this)" required>
         
-      <button type="submit" name="login" value="login">Login</button>
-    </div>
-
-    <!-- The forgot password and cancel button stuff -->
-    <div class="container" style="background-color:#f1f1f1">
+      <button type="submit"  id ="submit" name="login" value="login"disabled = "disabled" >Login</button>
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
     </div>
   </form>
   <!--End of Form-->
@@ -210,59 +212,106 @@ span.psw {
 <!--Sign Up modal form-->
 <div id="id02" class="modal">
   
-  <form class="modal-content animate" action="connect.php" method="post">
+  <form class="modal-content animate" id ="modal-content animate" name="modal-content animate" action="connect.php" method="post">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="avatar.jpg" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
-      <label for="fname"><b>First name</b></label>
-      <input type="text" placeholder="First name..." name="Firstname" required>
-
-      <label for="lname"><b>Last name</b></label>
-      <input type="text" placeholder="Last name..." name="Lastname" required>
       
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Email Address..." name="email" required>
+      <label for="email"><b>Email</b></label> <span class= "error">*</span>
+      <input type="email" placeholder="Email Address..." name="email" onkeyup="checkSubmission()" required> 
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <label for="psw"><b>Password</b></label> <span class= "error">*</span>
+      <input type="password" placeholder="Enter Password" name="psw" minlength="6" number=true onKeyup="checkSubmission()" required>
 
-      <label for="role"><b>Role</b></label>
-      <select id ="role" name ="role" class="dropdown" required>
-        <option value ="Admin"> Admin</option>
-        <option value="Council Member">Council Member</option>
-        <option value ="Supervisor">Supervisor</option>
-      </select>
+      <label for="cpsw"><b>Confirm Password</b></label> <span class= "error">*</span>
+      <input type="password" placeholder="Confirm Password" name="cpsw" minlength="6" number=true onKeyup="checkSubmission()" required>
+      
 
-      <label for="gender"><b>Gender</b></label>
-      <select id="gender" name="gender" class= "dropdown" required>
-        <option value="Male">Male</option>
-        <option value ="Female">Female</option>
-        <option value = "prefer not to say">I prefer not to say </option> 
-      </select>      
-      <button type="submit" name="register_user"> Sign up</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
+      <button type="submit"  id ="submit" name="register_user" onclick="return PasswordValidate()" disabled = "disabled">Sign up</button>
       <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
     </div>
   </form>
 </div>
 
-<script>
+<script type = "text/javascript" language="javascript">
 // Get the modal
 var modal = document.getElementById('id01');
-var modal1 = document.getElementById('id02');
+var modal2 = document.getElementById('id02');
+visible = true;
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal || event.target == modal1) {
-        modal.style.display = "none";
-        modal1.style.display = "none";
+    if (event.target == modal || event.target == modal2) {
+       modal.style.display = "none";
+       modal2.style.display = "none"; 
+      closeModal();
     }
 }
+
+
+function closeModal(){
+  if(modal.style.display == "none" || modal2.style.display == "none" ){
+    resetForm();
+}
+}
+
+
+function resetForm(){
+ document.getElementById("modal-content animate").reset();
+}
+
+
+//disabling and re-enabling signup and login submit button
+function checkSubmission(txt){
+
+  var c = document.forms["modal-content animate"].elements;
+  var submit = true;
+  var changeNow = false 
+
+  for ( var i = 0; i < c.length; i++){
+    console.log(c.toString() +"this is c"); 
+    console.log(c[i]+ "this is c[i]");
+    console.log("This is c len" + c.length)
+    console.log("This is c[i]" + c[i].value.length)
+    if(c[i].value.length == 0) {
+      submit = false;
+   //   alert("Please fill in both fields");
+    }
+    else{
+    document.getElementById('submit').disabled = !submit;
+    changeNow = true;
+     }
+
+
+
+        if (changeNow){
+          ChangeColor( document.getElementById('submit'));
+        }
+
+  }
+//    if(document.getElementById('submit').disabled = !submit){
+//  ChangeColor(document.getElementById('submit'));
+//}
+}
+
+
+function ChangeColor(btn){
+  btn.style.backgroundColor = "#4CAF50";
+}
+
+// validate the passwords
+function PasswordValidate() {
+        var password = document.getElementsByName("psw").value;
+        var confirmPassword = document.getElementsByName("cpsw").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+}
+
 </script>
 </body>
 </html>
