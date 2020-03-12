@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -6,6 +7,15 @@
   <script src="plotly-latest.min.js"></script>
   <!-- Importing ajax-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+
+
+  <!-- latest date time picker -->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <title>Walking Zebra</title>
@@ -28,7 +38,7 @@
 </style>
 
 
-<body class="w3-light-grey">
+<body class="w3-light-grey" onload="myFunction()">
 
   <!-- Page Container -->
   <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -61,7 +71,52 @@
           </div>
         </div>
 
-        <!--Showing the graph-->
+
+
+
+
+        <input type="text" name="datetimes" id="dt" label="Pick:" action ="mainPage.php" />
+
+        <!-- <script>
+$(function() {
+  $('input[name="datetimes"]').daterangepicker({
+    timePicker: true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+
+  console.log(dt)
+});
+</script> -->
+
+
+        <!-- <script>
+$('input[name="datetimes"]').daterangepicker({
+  "timePicker": true,
+  "timePicker24Hour": true,
+  "timePickerIncrement": 5,
+  "alwaysShowCalendars": true,
+  "startDate": "03/05/2020",
+  "endDate": "03/11/2020",
+  "buttonClasses": "btn-cancel",
+  "applyButtonClasses": "btn-appltbutton"
+}, 
+
+function(start, end, label) {
+console.log('New date range selected: ' + start.toISOString('YYYY-MM-DD') + ' to ' + end.toISOString('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
+
+</script> -->
+
+
+
+
+
+
+        <!-- Eduction bit -->
         <div class="w3-container w3-card w3-white">
           <h2 class="w3-text-grey w3-padding-16"><i
               class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
@@ -71,15 +126,95 @@
             <hr>
           </div>
 
-
+          <!--Showing the graph-->
           <div id="tester" style="width:600px;height:250px;">
 
             <script>
+
               function myFunction() {
-                from = document.getElementById("birthdaytime").value + ":00Z"
-                to = document.getElementById("birthdaytime2").value + ":00Z"
+
+               
+
+                $('input[name="datetimes"]').daterangepicker({
+                  "timePicker": true,
+                  "timePicker24Hour": true,
+                  "timePickerIncrement": 5,
+                  "alwaysShowCalendars": true,
+                  //stuff that fills start and end time
+                  "startDate": "01/01/2020",
+                  "endDate": "03/11/2020",
+                  "buttonClasses": "btn-cancel",
+                  "applyButtonClasses": "btn-appltbutton"
+                },
+                  function (start, end, label) {
+                    // var from = ""
+                    // var to = ""
+                    console.log('New date range selected: ' + start.toISOString('YYYY-MM-DD') + ' to ' + end.toISOString('YYYY-MM-DD'));
+
+                    // from = start.toISOString('YYYY-MM-DD')
+                    // to = end.toISOString('YYYY-MM-DD')
+
+                    
+
+                    //this gets today and yesterdays dates 
+                    // console.log(moment().toISOString());
+                    // console.log(moment().subtract(1, 'days').toISOString());
+
+                    // var from = moment().subtract(1, 'days').toISOString();
+                    // var to = moment().toISOString();
+
+
+
+                  
+
+                //use moment.js to calulate the previous day time 
+
+                // var from = moment().subtract(1, 'days').toISOString();
+                // var to = moment().toISOString();
+
+                //gets the date selected in intialisation
+                from = $('input[name="datetimes"]').data('daterangepicker').startDate.toISOString('YYYY-MM-DD');
+                to = $('input[name="datetimes"]').data('daterangepicker').endDate.toISOString('YYYY-MM-DD');
+
+                // if (from != null && to != null ){
+                // from = "2020-02-04T16:07:00Z"
+                // to = "2020-03-04T20:07:00Z"
+                // }
+
+                
+
+                console.log("before putting stuff in from" + from)
+                console.log("before putting stuff in to" + to)
+
+                //times = getTimes()
+
+                // from = start.toISOString('YYYY-MM-DD')
+                //     to = end.toISOString('YYYY-MM-DD')
+
+
+
+                //     console.log("AFTER putting stuff in from" + from)
+                // console.log("AFTER putting stuff in to" + to)
+
+                // if ((from != "") && (to != "")) {
+                //   console.log("None")
+                //   // from = times[0]
+                //   // to = times[1]
+
+                //   from = start.toISOString('YYYY-MM-DD')
+                //     to = end.toISOString('YYYY-MM-DD')
+                // } else {
+                //   from = "2020-02-04T16:07:00Z"
+                //   to = "2020-03-04T20:07:00Z"
+                // }
+
+
+
 
                 var query = "SELECT pplCount FROM countppl WHERE time >= '" + from + "' AND time <='" + to + "'";
+                console.log(query)
+
+
                 $.ajax({
                   type: 'GET',
                   crossOrigin: true,
@@ -106,12 +241,60 @@
 
                   }
                 });
+
+
+  //NEED TO KEEP THE CLOSE FUNCGTION HERE TO AUTO LOAD
+});
+
+
+                //end of my function
+
               }
+
+
+              // function myFunction() {
+
+              //   //use moment.js to calulate the previous day time 
+              //   from = document.getElementById("birthdaytime").value + ":00Z"
+              //   to = document.getElementById("birthdaytime2").value + ":00Z"
+
+              //   var query = "SELECT pplCount FROM countppl WHERE time >= '" + from + "' AND time <='" + to + "'";
+              //   $.ajax({
+              //     type: 'GET',
+              //     crossOrigin: true,
+              //     url: 'http://localhost:8086/query?db=countingpeople&q=' + query,
+              //     success: function (data) {
+              //       console.log(data)
+              //       const resultValues = data.results[0].series[0].values;
+              //       console.log(data.results[0].series[0]);
+              //       console.log(resultValues)
+
+              //       const unpackData = (arr, key) => {
+              //         return arr.map(obj => obj[key])
+              //       }
+
+              //       console.log(unpackData(resultValues, 1))
+
+              //       TESTER = document.getElementById('tester');
+              //       Plotly.newPlot(TESTER, [{
+              //         x: unpackData(resultValues, 0),
+              //         y: unpackData(resultValues, 1),
+              //       }], {
+              //         margin: { t: 0 }
+              //       });
+
+              //     }
+              //   });
+              // }
             </script>
+
+
+
+
+
           </div>
           <!-- End Right Column -->
         </div>
-
         <!-- End Grid -->
       </div>
 

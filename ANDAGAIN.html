@@ -4,11 +4,22 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+
   <style>
-    html, body, h1, h2, h3, h4, h5, h6, p {
-    font-family: "Raleway", sans-serif
-  }
-    body, html {
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      font-family: "Raleway", sans-serif
+    }
+
+    body,
+    html {
       height: 100%;
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
@@ -37,11 +48,11 @@
 
     /* Position text in the middle of the page/image */
     .bg-text {
-      background-color: rgb(0, 0, 0);
+      background-color: rgb(39, 124, 223);
       /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: white;
       /* Black w/opacity/see-through */
-      color: white;
+      color: green;
       font-weight: bold;
       border: 3px solid #f1f1f1;
       position: absolute;
@@ -56,6 +67,10 @@
     }
 
 
+    .tester {
+      width: 80%;
+      margin: auto;
+    }
   </style>
 
 
@@ -64,15 +79,21 @@
   <!-- Importing ajax-->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
+  <!-- stuff for date range picker -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </head>
 
-<body>
+<body onload="myFunction()">
 
   <div class="bg-image"></div>
 
   <div class="bg-text">
     <h1>Walking Zebra</h1>
-    
+
 
     <div class="w3-container">
       <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i></h6>
@@ -83,49 +104,46 @@
     <div class="w3-container w3-card w3-white w3-margin-bottom">
 
       <h2 class="w3-text-grey w3-padding-16"><i
-          class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal" ></i>Data Output</h2>
-        <p> (Please select the dates you are interested in.)</p>
+          class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Data Output</h2>
 
-          <!-- I removed the div class btw  -->
-      <div id ="theForm">
-
-      
-        <form class="form-inline" id="times">
-          <label>Select Dates:</label>
-          <label for="birthdaytime">From:</label>
-          <input type="datetime-local" id="birthdaytime" name="birthdaytime">
-
-          <label for="birthdaytime">To:</label>
-          <input type="datetime-local" id="birthdaytime2" name="birthdaytime">
-          <input onclick="myFunction()" type="button" value="Search!">
-        </form>
-
+      <!-- I removed the div class btw  -->
+      <div id="theForm">
+        <label>Please select the dates you are interested in:</label>
+        <input type="text" name="datetimes" id="dt" label="Pick:" action="mainPage.php" />
         <hr>
       </div>
 
-      </div>
+    </div>
+
+
+    <div id="tester" style="width:600px;height:250px;">
+
+      <script>
+
+        function myFunction() {
 
 
 
+          $('input[name="datetimes"]').daterangepicker({
+            "timePicker": true,
+            "timePicker24Hour": true,
+            "timePickerIncrement": 5,
+            "alwaysShowCalendars": true,
+            //stuff that fills start and end time
+            "startDate": moment().subtract(1, 'days').format('L'),
+            "endDate":  moment().format('L'),
+            "buttonClasses": "btn-cancel",
+            "applyButtonClasses": "btn-appltbutton"
+          },
+            function (start, end, label) {
 
-      <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i
-            class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+              console.log('New date range selected: ' + start.toISOString('YYYY-MM-DD') + ' to ' + end.toISOString('YYYY-MM-DD'));
 
-        <div class="w3-container">
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Forever</h6>
-          <hr>
-        </div>
-
-
-        <div id="tester" style="width:600px;height:250px;">
-
-          <script>
-            function myFunction() {
-              from = document.getElementById("birthdaytime").value + ":00Z"
-              to = document.getElementById("birthdaytime2").value + ":00Z"
+              from = start.toISOString('YYYY-MM-DD');
+              to = end.toISOString('YYYY-MM-DD');
 
               var query = "SELECT pplCount FROM countppl WHERE time >= '" + from + "' AND time <='" + to + "'";
+              console.log(query)
               $.ajax({
                 type: 'GET',
                 crossOrigin: true,
@@ -143,29 +161,83 @@
                   console.log(unpackData(resultValues, 1))
 
                   TESTER = document.getElementById('tester');
-                  Plotly.newPlot(TESTER, [{
+                  Plotly.newPlot(TESTER,
+
+                  [{
                     x: unpackData(resultValues, 0),
                     y: unpackData(resultValues, 1),
-                  }], {
-                    margin: { t: 0 }
-                  });
+                    name: 'Count',
+                    type: 'scatter'
+                  }],
+
+                  {
+                    showlegend: true, 
+                    
+                    title: {
+                      text: 'Walking Zebra',
+                      position: "middle center",
+                      font: {
+                        family: 'Raleway',
+                        size: 24
+                      },
+                      xref: 'paper',
+                      x: 0.05,
+                    },
+                    xaxis: {
+                      title: {
+                        text: 'Time',
+                        font: {
+                          family: 'Raleway',
+                          size: 18,
+                          color: '#7f7f7f'
+                        }
+                      },
+                    },
+                    yaxis: {
+                      title: {
+                        text: 'Count',
+                        font: {
+                          family: 'Raleway',
+                          size: 18,
+                          color: '#7f7f7f',
+                        }
+                      },
+                      showline: true,
+                    },
+
+
+                    //stuff for sizing and layout-is
+                    autosize: true,
+                    width: 1000,
+                    height: 300,
+                    margin: {
+                      l: 360,
+                      r: 20,
+                      b: 50,
+                      t: 50,
+                      //pad: 4
+                    },
+                    //paper_bgcolor: '#7f7f7f',
+                    //plot_bgcolor: '#c7c7c7'
+
+
+                    //end of layout bit
+                  }
+
+                );
+
+                  
 
                 }
               });
-            }
-          </script>
-
+              //NEED TO KEEP THE CLOSE FUNCGTION HERE TO AUTO LOAD
+            });
+          //end of my function
+        }
+      </script>
     </div>
-    </div>
-
-
-    
-    </div>
-    
-
-
-
+  </div>
+  </div>
 
 </body>
-
 </html>
