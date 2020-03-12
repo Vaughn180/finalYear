@@ -7,311 +7,363 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <!--I minimised the style stuff-->
 <style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-  background-image: url('canterbury.jpg');
-  min-height: 100%;
-  background-position: center;
-  background-size: cover;
-}
-h1{color: #0d6129;text-align: center;}
-
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
-
-.home-button {
-  background-color: transparent;
-  color: #0d6129;
-  border: 1px solid #0d6129;
-  margin: auto;
-  padding: 8px;
-}
-
-/* Full-width input fields */
-input[type=text], input[type=password], input[type=email]{
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  height: 5%;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: grey;
-  color: white;
-  border: 2px solid #e7e7e7;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-.home-button:hover{background-color: #4CAF50;}
-
-/* setting disabled button button */
-:disabled{
-  background-color: grey;
-}
-
-
-/* Center the image and position the close button */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  position: relative;
-}
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-.container {
-  padding: 16px;
-}
-
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 1% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 20%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
-  position: absolute;
-  right: 25px;
-  top: 0;
-  color: #000;
-  font-size: 35px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: red;
-  cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-  -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
-}
-  
-@keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
+  body,
+  h1 {
+    font-family: "Raleway", sans-serif
   }
 
-}
-.error {color: #FF0000;}
+  body,
+  html {
+    height: 100%
+  }
 
-.cancelbtn{
-  width: 100%;
-  background-color:#FF0000;
-  height:5%;
-}
+  .bgimg {
+    background-image: url('canterbury.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  h1 {
+    color: #0d6129;
+    text-align: center;
+  }
+
+  .button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .home-button {
+    background-color: transparent;
+    color: #0d6129;
+    border: 1px solid #0d6129;
+    margin: auto;
+    padding: 8px;
+  }
+
+  /* Full-width input fields */
+  input[type=text],
+  input[type=password],
+  input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    height: 5%;
+  }
+
+  /* Set a style for all buttons */
+  button {
+    background-color: grey;
+    color: white;
+    border: 2px solid #e7e7e7;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .home-button:hover {
+    background-color: #4CAF50;
+  }
+
+  /* setting disabled button button */
+  :disabled {
+    background-color: grey;
+  }
 
 
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+
+  .container {
+    padding: 16px;
+  }
+
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: 60px;
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 1% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 20%;
+    /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: red;
+    cursor: pointer;
+  }
+
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+
+  @-webkit-keyframes animatezoom {
+    from {
+      -webkit-transform: scale(0)
+    }
+
+    to {
+      -webkit-transform: scale(1)
+    }
+  }
+
+  @keyframes animatezoom {
+    from {
+      transform: scale(0)
+    }
+
+    to {
+      transform: scale(1)
+    }
+  }
+
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+
+  }
+
+  .error {
+    color: #FF0000;
+  }
+
+  .cancelbtn {
+    width: 100%;
+    background-color: #FF0000;
+    height: 5%;
+  }
 </style>
 
 <body>
- 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  
-  <div class = "w3-display-middle", id="white-strip" style="margin:auto;width:100%;background-color: #e7e7e7;opacity:0.9;" > 
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+
+    <div class="w3-display-middle" , id="white-strip"
+      style="margin:auto;width:100%;background-color: #e7e7e7;opacity:0.9;">
       <h1 class="w3-jumbo w3-animate-top">Walking Zebra</h1>
       <hr class="w3-border-grey" style="margin:auto;width:40%">
-       
-      <div class = "align", style="margin:auto; margin-top: 10px; margin-bottom: 10px; width:40%;">
+
+      <div class="align" , style="margin:auto; margin-top: 10px; margin-bottom: 10px; width:40%;">
         <!-- Login popup stuff -->
-      <button class="button home-button" onclick="document.getElementById('id01').style.display='block'" style="width:49%;">Login</button>
-      <!-- Sign up popup stuff -->
-      <button class="button home-button" onclick="document.getElementById('id02').style.display='block'" style="width:49%;">Sign Up</button>       
+        <button class="button home-button" onclick="document.getElementById('id01').style.display='block'"
+          style="width:49%;">Login</button>
+        <!-- Sign up popup stuff -->
+        <button class="button home-button" onclick="document.getElementById('id02').style.display='block'"
+          style="width:49%;">Sign Up</button>
+      </div>
     </div>
   </div>
-</div>
-  
-<div id="id01" class="modal">
-  <!--Div for the image-->
-  <!--Form begins-->
-  <form class="modal-content animate"  id ="modal-content animate" name="modal-content animate" action="login2.php" method="post">
-    <div class="imgcontainer">
-      <img src="avatar.jpg" alt="Avatar" class="avatar">
-    </div>
 
-    <!-- Div for the Email, PassW and Login bits-->
-    <div class="container">
-      <label for="email"><b>Email</b></label> <span class= "error">*</span>
-      <input type="email" id= "txt" placeholder="Email Address..." name="email" number=1 onKeyup="checkSubmission(this)" required> 
-      
+  <div id="id01" class="modal">
+    <!--Div for the image-->
+    <!--Form begins-->
+    <form class="modal-content animate" id="login-form" name="modal-content animate" action="login2.php" method="post">
+      <div class="imgcontainer">
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+      </div>
 
-      <label for="psw"><b>Password</b></label> <span class= "error">*</span>
-      <input type="password" id="txt2" placeholder="Password..." name="password" minlength="6" number=true onKeyup="checkSubmission(this)" required>
-        
-      <button type="submit"  id ="submit" name="login" value="login"disabled = "disabled" >Login</button>
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-    </div>
+      <!-- Div for the Email, PassW and Login bits-->
+      <div class="container">
+        <label for="email"><b>Email</b></label> <span class="error">*</span>
+        <input type="email" id="txt" placeholder="Email Address..." name="email" number=1
+          onKeyup="checkSubmission(this)" required>
+
+
+        <label for="psw"><b>Password</b></label> <span class="error">*</span>
+        <input type="password" id="txt2" placeholder="Password..." name="password" minlength="6" number=true
+          onKeyup="checkSubmission(this)" required>
+
+        <button type="submit" id="submit-login" name="login" value="login" disabled="disabled">Login</button>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+          class="cancelbtn">Cancel</button>
+      </div>
+  </div>
   </form>
   <!--End of Form-->
-</div>
+  </div>
 
-<!-- End of login modal stuff -->
+  <!-- End of login modal stuff -->
 
-<!--Sign Up modal form-->
-<div id="id02" class="modal">
-  
-  <form class="modal-content animate" id ="modal-content animate" name="modal-content animate" action="connect.php" method="post">
-    <div class="imgcontainer">
-      <img src="avatar.jpg" alt="Avatar" class="avatar">
-    </div>
+  <!--Sign Up modal form-->
+  <div id="id02" class="modal">
 
-    <div class="container">
-      
-      <label for="email"><b>Email</b></label> <span class= "error">*</span>
-      <input type="email" placeholder="Email Address..." name="email" onkeyup="checkSubmission()" required> 
+    <form class="modal-content animate" id="signup-form" name="modal-content animate" action="connect.php"
+      method="post">
+      <div class="imgcontainer">
+        <img src="avatar.jpg" alt="Avatar" class="avatar">
+      </div>
 
-      <label for="psw"><b>Password</b></label> <span class= "error">*</span>
-      <input type="password" placeholder="Enter Password" name="psw" minlength="6" number=true onKeyup="checkSubmission()" required>
+      <div class="container">
 
-      <label for="cpsw"><b>Confirm Password</b></label> <span class= "error">*</span>
-      <input type="password" placeholder="Confirm Password" name="cpsw" minlength="6" number=true onKeyup="checkSubmission()" required>
-      
+        <label for="email"><b>Email</b></label> <span class="error">*</span>
+        <input type="email" placeholder="Email Address..." name="email" onkeyup="checkSubmission2()" required>
 
-      <button type="submit"  id ="submit" name="register_user" onclick="return PasswordValidate()" disabled = "disabled">Sign up</button>
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
-  </form>
-</div>
+        <label for="psw"><b>Password</b></label> <span class="error">*</span>
+        <input type="password" placeholder="Enter Password" id="psw" minlength="6" number=true
+          onchange="checkSubmission2()" required>
 
-<script type = "text/javascript" language="javascript">
-// Get the modal
-var modal = document.getElementById('id01');
-var modal2 = document.getElementById('id02');
-visible = true;
+        <label for="cpsw"><b>Confirm Password</b></label> <span class="error">*</span>
+        <input type="password" placeholder="Confirm Password" id="cpsw" minlength="6" number=true
+          onchange="checkSubmission2()" required>
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal || event.target == modal2) {
-       modal.style.display = "none";
-       modal2.style.display = "none"; 
-      closeModal();
+
+        <button type="submit" id="submit-signup" name="register_user" 
+          disabled="disabled">Sign up</button>
+        <button type="button" onclick="document.getElementById('id02').style.display='none'"
+          class="cancelbtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <script type="text/javascript" language="javascript">
+    // Get the modal
+    var modal = document.getElementById('id01');
+    var modal2 = document.getElementById('id02');
+    visible = true;
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal || event.target == modal2) {
+        modal.style.display = "none";
+        modal2.style.display = "none";
+        closeModal();
+      }
     }
-}
 
 
-function closeModal(){
-  if(modal.style.display == "none" || modal2.style.display == "none" ){
-    resetForm();
-}
-}
-
-
-function resetForm(){
- document.getElementById("modal-content animate").reset();
-}
-
-
-//disabling and re-enabling signup and login submit button
-function checkSubmission(txt){
-
-  var c = document.forms["modal-content animate"].elements;
-  var submit = true;
-  var changeNow = false 
-
-  for ( var i = 0; i < c.length; i++){
-    console.log(c.toString() +"this is c"); 
-    console.log(c[i]+ "this is c[i]");
-    console.log("This is c len" + c.length)
-    console.log("This is c[i]" + c[i].value.length)
-    if(c[i].value.length == 0) {
-      submit = false;
-   //   alert("Please fill in both fields");
+    function closeModal() {
+      if (modal.style.display == "none" || modal2.style.display == "none") {
+        resetForm();
+      }
     }
-    else{
-    document.getElementById('submit').disabled = !submit;
-    changeNow = true;
-     }
 
 
+    function resetForm() {
+      document.getElementById("login-form").reset();
+      document.getElementById("signup-form").reset();
+    }
 
-        if (changeNow){
-          ChangeColor( document.getElementById('submit'));
+    //disabling and re-enabling login submit button
+    function checkSubmission(txt) {
+
+      var c = document.forms["login-form"].elements;
+      var isDisabled = false;
+      for (var i = 0; i < c.length; i++) {
+        if (c[i].type == "button" || c[i].type == "submit") continue;
+        if (c[i].value.length == 0) {
+          isDisabled = true;
         }
+      }
+      document.getElementById('submit-login').disabled = isDisabled;
+      document.getElementById('submit-login').style.backgroundColor = isDisabled ? "grey" : "#4CAF50";
+    }
 
-  }
-//    if(document.getElementById('submit').disabled = !submit){
-//  ChangeColor(document.getElementById('submit'));
-//}
-}
+    //disabling and re-enabling signup submit button
+    function checkSubmission2(txt) {
+
+      var c = document.forms["signup-form"].elements;
+      var passw = document.getElementById('psw').value
+      var confpass = document.getElementById('cpsw').value
+      var matchingPass = (passw == confpass)
+      var isDisabled = false;
 
 
-function ChangeColor(btn){
-  btn.style.backgroundColor = "#4CAF50";
-}
-
-// validate the passwords
-function PasswordValidate() {
-        var password = document.getElementsByName("psw").value;
-        var confirmPassword = document.getElementsByName("cpsw").value;
-        if (password != confirmPassword) {
-            alert("Passwords do not match.");
-            return false;
+      for (var i = 0; i < c.length; i++) {
+        if (c[i].type == "button" || c[i].type == "submit") continue;
+        if (c[i].value.length == 0 || !matchingPass) {
+          isDisabled = true;
         }
-        return true;
-}
+      }
+      if(passw != '' && confpass != '' && isDisabled){ alert("Your passwords do not match!");}
+      document.getElementById('submit-signup').disabled = isDisabled;
+      document.getElementById('submit-signup').style.backgroundColor = isDisabled ? "grey" : "#4CAF50";
+    }
 
-</script>
+
+
+    // validate the passwords
+    function PasswordValidate() {
+      var isDisabled = false;
+      var passw = document.getElementById('psw').value
+      var confpass = document.getElementById('cpsw').value
+      if ( passw != confpass ) {
+        isDisabled = true;
+      }
+      if(passw != '' && confpass != '' && isDisabled){ alert("Your passwords do not match!");}
+        document.getElementById('submit-signup').disabled = isDisabled;
+        document.getElementById('submit-signup').style.backgroundColor = isDisabled ? "grey" : "#4CAF50";
+      }
+
+  </script>
 </body>
+
 </html>

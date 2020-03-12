@@ -10,7 +10,7 @@ $password = $_POST['psw'];
 
 //DB Connection and Sign UP
 $conn = new mysqli('localhost', 'root', 'co600project', 'walkingzebra');
-mysql_select_db($conn);
+//mysql_select_db($conn);
 if ($conn->connect_error){
     die('connection failed: '.$conn->connection_error);
 } else {
