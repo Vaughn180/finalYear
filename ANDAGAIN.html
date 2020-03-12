@@ -91,7 +91,7 @@
 
   <div class="bg-image"></div>
 
-  <div class="bg-text">
+  <div class="bg-text" id="content">
     <h1>Walking Zebra</h1>
 
 
@@ -120,9 +120,92 @@
 
       <script>
 
+        plotly_layout = {
+
+          showlegend: true,
+
+          title: {
+            text: 'Walking Zebra',
+            position: "middle center",
+            font: {
+              family: 'Raleway',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+            title: {
+              text: 'Time',
+              font: {
+                family: 'Raleway',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'Count',
+              font: {
+                family: 'Raleway',
+                size: 18,
+                color: '#7f7f7f',
+              }
+            },
+            showline: true,
+          },
+
+
+          //stuff for sizing and layout-is
+          //resize: true,
+          //autosize: true,
+          width: 1000,
+          height: 300,
+          margin: {
+            l: 360,
+            r: 20,
+            b: 50,
+            t: 50,
+            //pad: 4
+          },
+          //paper_bgcolor: '#7f7f7f',
+          //plot_bgcolor: '#c7c7c7'
+
+
+          //end of layout bit
+        };
+
+        function updateLayout() {
+          // Get width and height of the window excluding scrollbars
+          //var w = document.documentElement.clientWidth;
+          var w = document.getElementById("content").clientWidth;
+          // var h = document.documentElement.clientHeight;
+          var h = document.getElementById("content").clientHeight;
+          var t = document.getElementById("tester").offsetTop;
+
+          // Display result inside a div element
+          console.log("Width: " + w + ", " + "Height: " + h + "the top" + t);
+
+          plotly_layout.width = w - 225;
+          plotly_layout.height = Math.min(300, h - t);
+        }
+
+        // Defining event listener function
+        function displayWindowSize() {
+          updateLayout();
+          //apply layout
+          Plotly.relayout('tester', plotly_layout);
+        }
+
+        // Attaching the event listener function to window's resize event
+        console.log(window.addEventListener("resize", displayWindowSize));
+
+        
+
         function myFunction() {
-
-
+          
+          updateLayout();
 
           $('input[name="datetimes"]').daterangepicker({
             "timePicker": true,
@@ -131,7 +214,7 @@
             "alwaysShowCalendars": true,
             //stuff that fills start and end time
             "startDate": moment().subtract(1, 'days').format('L'),
-            "endDate":  moment().format('L'),
+            "endDate": moment().format('L'),
             "buttonClasses": "btn-cancel",
             "applyButtonClasses": "btn-appltbutton"
           },
@@ -163,72 +246,27 @@
                   TESTER = document.getElementById('tester');
                   Plotly.newPlot(TESTER,
 
-                  [{
-                    x: unpackData(resultValues, 0),
-                    y: unpackData(resultValues, 1),
-                    name: 'Count',
-                    type: 'scatter'
-                  }],
+                    [{
+                      x: unpackData(resultValues, 0),
+                      y: unpackData(resultValues, 1),
+                      name: 'Count',
+                      type: 'scatter'
+                    }],
 
-                  {
-                    showlegend: true, 
-                    
-                    title: {
-                      text: 'Walking Zebra',
-                      position: "middle center",
-                      font: {
-                        family: 'Raleway',
-                        size: 24
-                      },
-                      xref: 'paper',
-                      x: 0.05,
-                    },
-                    xaxis: {
-                      title: {
-                        text: 'Time',
-                        font: {
-                          family: 'Raleway',
-                          size: 18,
-                          color: '#7f7f7f'
-                        }
-                      },
-                    },
-                    yaxis: {
-                      title: {
-                        text: 'Count',
-                        font: {
-                          family: 'Raleway',
-                          size: 18,
-                          color: '#7f7f7f',
-                        }
-                      },
-                      showline: true,
-                    },
+                    plotly_layout
+
+                  );
+                  console.log(plotly_layout)
 
 
-                    //stuff for sizing and layout-is
-                    autosize: true,
-                    width: 1000,
-                    height: 300,
-                    margin: {
-                      l: 360,
-                      r: 20,
-                      b: 50,
-                      t: 50,
-                      //pad: 4
-                    },
-                    //paper_bgcolor: '#7f7f7f',
-                    //plot_bgcolor: '#c7c7c7'
 
-
-                    //end of layout bit
-                  }
-
-                );
-
-                  
-
+                },
+                error: function (xhr, textStatus, error) {
+                  console.log(xhr.statusText);
+                  console.log(textStatus);
+                  console.log(error);
                 }
+
               });
               //NEED TO KEEP THE CLOSE FUNCGTION HERE TO AUTO LOAD
             });
@@ -240,4 +278,5 @@
   </div>
 
 </body>
+
 </html>
