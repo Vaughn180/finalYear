@@ -243,7 +243,7 @@
           onKeyup="checkSubmission(this)" required>
 
         <button type="submit" id="submit-login" name="login" value="login" disabled="disabled">Login</button>
-        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+        <button type="button" onclick="cancelAndReset()"
           class="cancelbtn">Cancel</button>
       </div>
   </div>
@@ -278,7 +278,7 @@
 
         <button type="submit" id="submit-signup" name="register_user" 
           disabled="disabled">Sign up</button>
-        <button type="button" onclick="document.getElementById('id02').style.display='none'"
+        <button type="button" onclick="cancelAndReset()"
           class="cancelbtn">Cancel</button>
       </div>
     </form>
@@ -288,35 +288,40 @@
     // Get the modal
     var modal = document.getElementById('id01');
     var modal2 = document.getElementById('id02');
-    visible = true;
+    var cancel = document.getElementsByClassName('cancelbtn');
+
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
       if (event.target == modal || event.target == modal2) {
         modal.style.display = "none";
         modal2.style.display = "none";
-        closeModal();
+      //  closeModal(); 
+      resetForm(); 
       }
     }
 
+   function modalDisappear(){
+   modal.style.display = "none";
+   modal2.style.display ="none";
+  }
 
-    function closeModal() {
-      if (modal.style.display == "none" || modal2.style.display == "none") {
-        resetForm();
-      }
-    }
+  function cancelAndReset(){
+    modalDisappear();
+    resetForm();
+  }
 
-
-    function resetForm() {
+  
+  function resetForm() {
       document.getElementById("login-form").reset();
       document.getElementById("signup-form").reset();
-    }
+  }
 
     //disabling and re-enabling login submit button
-    function checkSubmission(txt) {
+  function checkSubmission(txt) {
 
-      var c = document.forms["login-form"].elements;
-      var isDisabled = false;
+    var c = document.forms["login-form"].elements;
+     var isDisabled = false;
       for (var i = 0; i < c.length; i++) {
         if (c[i].type == "button" || c[i].type == "submit") continue;
         if (c[i].value.length == 0) {
@@ -347,21 +352,6 @@
       document.getElementById('submit-signup').disabled = isDisabled;
       document.getElementById('submit-signup').style.backgroundColor = isDisabled ? "grey" : "#4CAF50";
     }
-
-
-
-    // validate the passwords
-    function PasswordValidate() {
-      var isDisabled = false;
-      var passw = document.getElementById('psw').value
-      var confpass = document.getElementById('cpsw').value
-      if ( passw != confpass ) {
-        isDisabled = true;
-      }
-      if(passw != '' && confpass != '' && isDisabled){ alert("Your passwords do not match!");}
-        document.getElementById('submit-signup').disabled = isDisabled;
-        document.getElementById('submit-signup').style.backgroundColor = isDisabled ? "grey" : "#4CAF50";
-      }
 
   </script>
 </body>
