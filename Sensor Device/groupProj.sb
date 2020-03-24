@@ -25,8 +25,8 @@ dim packets[35]
 
 function pirHandler()   
  COUNTER = COUNTER +1 
- print "\n"
  print COUNTER
+ print "\n"
     
 endfunc 1
 // converts binary coded decimal to regular value (decimal)
@@ -79,11 +79,11 @@ endfunc 1
 
 
 function LoramacJoining() As Integer
-    print "\nJoining"
+    print "Joining\n"
 endfunc 1
 
 function LoramacJoined() As Integer
-    print "\nJoined"
+    print "Joined\n"
 //pinsetup -  this sets up GPIO pin., 6- the SIO pin is connected to the output of PIR.  
 // Middle ,specifies the DIGITALINPUT. as we are using PIR sensor.
     // PullDOWN is a sub function for the  pull down resistor which dictates the direction of the prefered value.
@@ -109,7 +109,7 @@ dim RC
 TIMERSTART(0, 10000, RECURRINGTIMER)
 RC = I2COPEN(I2C_CLOCK_HZ, CFG_FLAGS, HANDLE )
 
-print "\nStarting"
+print "Starting\n"
 
 //setup for lora
 RC = LORAMACJOIN(LORAMAC_JOIN_BY_REQUEST)
