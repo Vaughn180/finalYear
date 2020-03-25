@@ -15,6 +15,7 @@
 #define DAY_ADDR 4
 #define MONTH_ADDR 5
 #define YEAR_ADDR 6
+#define LORAMAC_OPT_DATA_RATE 2
 
 
 dim COUNTER
@@ -104,14 +105,21 @@ ONEVENT EVLORAMACJOINING CALL LoramacJoining
 ONEVENT EVLORAMACJOINED CALL LoramacJoined
 
 // dim stands for dimension RC is the variable being used to store the return code for both functions
-dim RC
+dim RC, temp$
 //Start the recurring timer
 TIMERSTART(0, 10000, RECURRINGTIMER)
 RC = I2COPEN(I2C_CLOCK_HZ, CFG_FLAGS, HANDLE )
 
 print "Starting\n"
 
-//setup for lora
+
+//setting the data rate to 0
+
+temp$ = "0"
+// Retrieve the current data rate and print it
+RC = LORAMACSetOption(LORAMAC_OPT_DATA_RATE, temp$)
+
+// setup for lora
 RC = LORAMACJOIN(LORAMAC_JOIN_BY_REQUEST)
 //Wait for an event to occur
 WAITEVENT
