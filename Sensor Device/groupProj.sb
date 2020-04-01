@@ -1,7 +1,10 @@
+#include "RM1xx-defs.h"
+
 #define DIGITALINPUT 1
 #define PULLDOWN 1
 #define RISING 1
 #define LORAMAC_JOIN_BY_REQUEST 1
+#define LORAMAC_JOIN_BY_PERSONALIZATION 0
 #define EVENTPORT 2 // port sending events down
 #define CONFIRMATION 1
 #define NO_CONFIRMATION  0
@@ -15,7 +18,7 @@
 #define DAY_ADDR 4
 #define MONTH_ADDR 5
 #define YEAR_ADDR 6
-#define LORAMAC_OPT_DATA_RATE 2
+//#define LORAMAC_OPT_DATA_RATE 2
 
 
 dim COUNTER
@@ -26,37 +29,46 @@ dim packets[35]
 
 function pirHandler()   
  COUNTER = COUNTER +1 
- print COUNTER
- print "\n"
-    
+ print "Detections: "; COUNTER ; "\n"
 endfunc 1
 // converts binary coded decimal to regular value (decimal)
 function BCD_2_DEC(x)
     
 endfunc (x/16) *10 + (x%16)  
+// converts decimal to binary coded decimal
+function DEC_2_BCD(x)
+endfunc (x/10)*16 + (x%10)
 
 // prepare the date before it sends it across
 // first 2 bytes im sending is the count
 // the 6 bytes are date and type broken up into individual bytes.
-function PrepareData$() 
-    dim data$ , RC, temp , index
+function PrepareData$()
+    dim data$ , RC, index
+    dim year, month, day, hour, minute, second
     RC= STRSETCHR(data$,COUNTER/256,0) // tens of count
     RC= STRSETCHR(data$,COUNTER%256,1) // units of count
-    RC= I2CREADREG8(RTC_ADDRESS,SEC_ADDR, temp) // seconds on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),2)
-    RC= I2CREADREG8(RTC_ADDRESS,MIN_ADDR, temp) // minutes on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),3)
-    RC= I2CREADREG8(RTC_ADDRESS,HOUR_ADDR, temp) // hours on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),4)
-    RC= I2CREADREG8(RTC_ADDRESS,DAY_ADDR, temp) // day on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),5)
-    RC= I2CREADREG8(RTC_ADDRESS,MONTH_ADDR, temp) //month on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),6)
-    RC= I2CREADREG8(RTC_ADDRESS,YEAR_ADDR, temp) // year on Tiny RTC
-    RC= STRSETCHR(data$, BCD_2_DEC(temp),7) 
-     
-   // index = 0 
-   // packets = 
+    RC= I2CREADREG8(RTC_ADDRESS,SEC_ADDR, second) // seconds on Tiny RTC
+    second = BCD_2_DEC(second)
+    RC= STRSETCHR(data$, second,2)
+    RC= I2CREADREG8(RTC_ADDRESS,MIN_ADDR, minute) // minutes on Tiny RTC
+    minute = BCD_2_DEC(minute)
+    RC= STRSETCHR(data$, minute,3)
+    RC= I2CREADREG8(RTC_ADDRESS,HOUR_ADDR, hour) // hours on Tiny RTC
+    hour = BCD_2_DEC(hour)
+    RC= STRSETCHR(data$, (hour),4)
+    RC= I2CREADREG8(RTC_ADDRESS,DAY_ADDR, day) // day on Tiny RTC
+    day = BCD_2_DEC(day)
+    RC= STRSETCHR(data$, (day),5)
+    RC= I2CREADREG8(RTC_ADDRESS,MONTH_ADDR, month) //month on Tiny RTC
+    month = BCD_2_DEC(month)
+    RC= STRSETCHR(data$, (month),6)
+    RC= I2CREADREG8(RTC_ADDRESS,YEAR_ADDR, year) // year on Tiny RTC
+    year = BCD_2_DEC(year)
+    RC= STRSETCHR(data$, (year),7) 
+    
+    year = year + 2000
+
+    print "Sending Message: " ; year ; "-" ; month ; "-" ; day ; "T" ; hour ; ":" ; minute ; ":" ; second ; "\n"
 
 endfunc data$
 
@@ -85,8 +97,9 @@ endfunc 1
 
 function LoramacJoined() As Integer
     print "Joined\n"
-//pinsetup -  this sets up GPIO pin., 6- the SIO pin is connected to the output of PIR.  
-// Middle ,specifies the DIGITALINPUT. as we are using PIR sensor.
+
+    //pinsetup -  this sets up GPIO pin., 6- the SIO pin is connected to the output of PIR.  
+    // Middle ,specifies the DIGITALINPUT. as we are using PIR sensor.
     // PullDOWN is a sub function for the  pull down resistor which dictates the direction of the prefered value.
     dim RC 
     RC = GPIOSETFUNC(6, DIGITALINPUT, PULLDOWN)
@@ -95,6 +108,59 @@ function LoramacJoined() As Integer
     RC = GPIOBINDEVENT(0, 6 ,RISING)
 endfunc 1
 
+function HandlerLoRaLinkCheckResponse(BYVAL nMargin, BYVAL nGwCnt) AS INTEGER
+    PRINT "Link Check Response: Margin = " ; nMargin ; "dB Gateway Count =" ; nGwCnt ; "\n"
+endfunc 1
+
+function HndlUART()
+    TimerStart(1,100,0)
+endfunc 1
+// keith did this.
+function hndlTmr()
+    dim strLength, str$
+    strLength = UartRead(str$)
+    print str$
+
+    // YYYY-MM-DDTHH:MM:SS
+    if strlength == 20 then
+        if strgetchr(str$, 4)== 45 && strgetchr(str$, 7) == 45 && strgetchr(str$, 10) == 84 && strgetchr(str$, 13) == 58 && strgetchr(str$, 16) == 58 then
+            dim year$, month$, day$, hour$, minute$, second$
+            year$ = left$(str$, 4)
+            month$ = mid$(str$, 5, 2)
+            day$ = mid$(str$, 8, 2)
+            hour$ = mid$(str$, 11, 2)
+            minute$ = mid$(str$, 14, 2)
+            second$ = mid$(str$, 17, 2)
+
+            dim year, month, day, hour, minute, second
+            year = strvaldec(year$)
+            month = strvaldec(month$)
+            day = strvaldec(day$)
+            hour = strvaldec(hour$)
+            minute = strvaldec(minute$)
+            second = strvaldec(second$)
+
+            dim RC
+
+            RC = I2CWriteReg8(RTC_ADDRESS,YEAR_ADDR,DEC_2_BCD(year-2000))
+            RC = I2CWriteReg8(RTC_ADDRESS,MONTH_ADDR,DEC_2_BCD(month))
+            RC = I2CWriteReg8(RTC_ADDRESS,DAY_ADDR,DEC_2_BCD(day))
+            RC = I2CWriteReg8(RTC_ADDRESS,HOUR_ADDR,DEC_2_BCD(hour))
+            RC = I2CWriteReg8(RTC_ADDRESS,MIN_ADDR,DEC_2_BCD(minute))
+            RC = I2CWriteReg8(RTC_ADDRESS,SEC_ADDR,DEC_2_BCD(second))
+
+            print "Setting time to: " ; year$ ; " " ; month$ ; " " ; day$ ; " " ; hour$ ; " " ; minute$ ; " " ; second$ ; "\n"
+        else
+            print "Invalid: " ; str$ ; "\n"
+        endif
+    else
+        print "Incorrect length: " ; strLength ; "\n"
+    endif
+
+endfunc 1
+
+onevent evuartrx    call HndlUART
+onevent evtmr1      call hndlTmr
 
 //Setup event handlers
 onevent EVTMR0 call DataSend
@@ -103,6 +169,9 @@ onevent EVGPIOCHAN0 call pirHandler
 //event handler for lora
 ONEVENT EVLORAMACJOINING CALL LoramacJoining
 ONEVENT EVLORAMACJOINED CALL LoramacJoined
+ONEVENT EVLORAMACLINKCHECKRESPMSG call HandlerLoRaLinkCheckResponse
+
+
 
 // dim stands for dimension RC is the variable being used to store the return code for both functions
 dim RC, temp$
@@ -112,15 +181,25 @@ RC = I2COPEN(I2C_CLOCK_HZ, CFG_FLAGS, HANDLE )
 
 print "Starting\n"
 
+// setup for lora
+//RC = LORAMACJOIN(LORAMAC_JOIN_BY_REQUEST)
+RC = LORAMACJOIN(LORAMAC_JOIN_BY_PERSONALIZATION)
+PRINT "Join: " ; RC ; "\n"
 
 //setting the data rate to 0
-
-temp$ = "0"
+temp$ = "4"
 // Retrieve the current data rate and print it
 RC = LORAMACSetOption(LORAMAC_OPT_DATA_RATE, temp$)
+PRINT "Data Rate: " ; RC ; "\n"
 
-// setup for lora
-RC = LORAMACJOIN(LORAMAC_JOIN_BY_REQUEST)
+//Link Check for LORA
+RC = LORAMACLinkCheck()
+PRINT "Link Check: " ; RC ; "\n"
+
+// dim str$
+// rc = LORAMACGetOption(LORAMAC_OPT_DEV_EUI, str$)
+// print str$ ; "\n"
+
 //Wait for an event to occur
 WAITEVENT
 
