@@ -81,15 +81,6 @@ function DataSend()
         
 endfunc 1
 
-// function addData()
-// packets = packets + data$      
-
-// endfunc 1
-
-function randomSelect()
-
-endfunc 1
-
 
 function LoramacJoining() As Integer
     print "Joining\n"
@@ -164,7 +155,7 @@ onevent evtmr1      call hndlTmr
 
 //Setup event handlers
 onevent EVTMR0 call DataSend
-// when the event occurs call out pirHandler fucntion
+// when the event occurs call out pirHandler function
 onevent EVGPIOCHAN0 call pirHandler
 //event handler for lora
 ONEVENT EVLORAMACJOINING CALL LoramacJoining
@@ -196,9 +187,6 @@ PRINT "Data Rate: " ; RC ; "\n"
 RC = LORAMACLinkCheck()
 PRINT "Link Check: " ; RC ; "\n"
 
-// dim str$
-// rc = LORAMACGetOption(LORAMAC_OPT_DEV_EUI, str$)
-// print str$ ; "\n"
 
 //Wait for an event to occur
 WAITEVENT
