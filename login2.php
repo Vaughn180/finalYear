@@ -24,8 +24,8 @@ $conn = new mysqli('localhost', 'root', 'co600project', 'walkingzebra');
         if ($row == 1) {
             header('location: ANDAGAIN.html');
         } else if ($row < 1){
-            echo "Incorrect email or password";   
-            header('location: landingpage.html');           
+            header('location: landingpage.html'); 
+            
         }
 
         // close the result. 

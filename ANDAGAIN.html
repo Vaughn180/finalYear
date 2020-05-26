@@ -126,7 +126,19 @@
 
           title: {
             text: 'Walking Zebra',
-            position: "middle center",
+            // position: "middle center",
+            //  // pad: "20,20,20,20", 
+            //  xanchor: "center",
+            //  yanchor: "middle",
+            // //  X: "1",
+            // //  Y: "1",
+            //  xref: "container",
+            xanchor: 'middle', // or 'auto', which matches 'left' in this case
+            yanchor: 'bottom',
+            x: -2,
+            y: 2,
+            xref: 'paper',
+            yref: 'paper',
             font: {
               family: 'Raleway',
               size: 24
@@ -201,13 +213,14 @@
         // Attaching the event listener function to window's resize event
         console.log(window.addEventListener("resize", displayWindowSize));
 
-        
+
 
         function myFunction() {
-          
+
           updateLayout();
 
           $('input[name="datetimes"]').daterangepicker({
+            "showDropdowns": true,
             "timePicker": true,
             "timePicker24Hour": true,
             "timePickerIncrement": 5,
