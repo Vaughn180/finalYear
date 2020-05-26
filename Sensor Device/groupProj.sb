@@ -177,7 +177,7 @@ print "Starting\n"
 RC = LORAMACJOIN(LORAMAC_JOIN_BY_PERSONALIZATION)
 PRINT "Join: " ; RC ; "\n"
 
-//setting the data rate to 0
+//setting the data rate to 4
 temp$ = "4"
 // Retrieve the current data rate and print it
 RC = LORAMACSetOption(LORAMAC_OPT_DATA_RATE, temp$)
