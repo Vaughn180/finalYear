@@ -7,6 +7,10 @@ define('DATABASE', 'walkingzebra');
 try {
     $connection = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USER, PASSWORD);
 } catch (PDOException $e) {
-    exit("Error: " . $e->getMessage());
+    exit("Failed to connect to MySQL " . $e->getMessage());
 }
+
+
+
+
 ?>
